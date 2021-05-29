@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PakistaniTwitterDBModelStoreContainer" CdmEntityContainer="PakistaniTwitterDBEntities">
+    <EntitySetMapping Name="Followers_PakistaniTwitter">
+      <EntityTypeMapping TypeName="PakistaniTwitterDBModel.Followers_PakistaniTwitter">
+        <MappingFragment StoreEntitySet="Followers_PakistaniTwitter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FollowingId" ColumnName="FollowingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tweets_PakistaniTwitter">
+      <EntityTypeMapping TypeName="PakistaniTwitterDBModel.Tweets_PakistaniTwitter">
+        <MappingFragment StoreEntitySet="Tweets_PakistaniTwitter">
+          <ScalarProperty Name="TweetId" ColumnName="TweetId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users_PakistaniTwitter">
+      <EntityTypeMapping TypeName="PakistaniTwitterDBModel.Users_PakistaniTwitter">
+        <MappingFragment StoreEntitySet="Users_PakistaniTwitter">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Joined" ColumnName="Joined" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

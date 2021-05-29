@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PakistaniTwitterDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Followers_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="FollowingId" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tweets_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="TweetId" />
+    </Key>
+    <Property Name="TweetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Message" Type="varchar" MaxLength="140" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FullName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Joined" Type="datetime" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Following_Person">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Followers_PakistaniTwitter" Type="Self.Followers_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Followers_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Following_Person1">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Followers_PakistaniTwitter" Type="Self.Followers_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Followers_PakistaniTwitter">
+        <PropertyRef Name="FollowingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tweet_Person">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Tweets_PakistaniTwitter" Type="Self.Tweets_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tweets_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PakistaniTwitterDBModelStoreContainer">
+    <EntitySet Name="Followers_PakistaniTwitter" EntityType="Self.Followers_PakistaniTwitter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tweets_PakistaniTwitter" EntityType="Self.Tweets_PakistaniTwitter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users_PakistaniTwitter" EntityType="Self.Users_PakistaniTwitter" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Following_Person" Association="Self.FK_Following_Person">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Followers_PakistaniTwitter" EntitySet="Followers_PakistaniTwitter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Following_Person1" Association="Self.FK_Following_Person1">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Followers_PakistaniTwitter" EntitySet="Followers_PakistaniTwitter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tweet_Person" Association="Self.FK_Tweet_Person">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Tweets_PakistaniTwitter" EntitySet="Tweets_PakistaniTwitter" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

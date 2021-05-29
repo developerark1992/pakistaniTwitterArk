@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PakistaniTwitterDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Followers_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FollowingId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users_PakistaniTwitter" Relationship="Self.FK_Following_Person" FromRole="Followers_PakistaniTwitter" ToRole="Users_PakistaniTwitter" />
+    <NavigationProperty Name="Users_PakistaniTwitter1" Relationship="Self.FK_Following_Person1" FromRole="Followers_PakistaniTwitter" ToRole="Users_PakistaniTwitter" />
+  </EntityType>
+  <EntityType Name="Tweets_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="TweetId" />
+    </Key>
+    <Property Name="TweetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Users_PakistaniTwitter" Relationship="Self.FK_Tweet_Person" FromRole="Tweets_PakistaniTwitter" ToRole="Users_PakistaniTwitter" />
+  </EntityType>
+  <EntityType Name="Users_PakistaniTwitter">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Joined" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Followers_PakistaniTwitter" Relationship="Self.FK_Following_Person" FromRole="Users_PakistaniTwitter" ToRole="Followers_PakistaniTwitter" />
+    <NavigationProperty Name="Followers_PakistaniTwitter1" Relationship="Self.FK_Following_Person1" FromRole="Users_PakistaniTwitter" ToRole="Followers_PakistaniTwitter" />
+    <NavigationProperty Name="Tweets_PakistaniTwitter" Relationship="Self.FK_Tweet_Person" FromRole="Users_PakistaniTwitter" ToRole="Tweets_PakistaniTwitter" />
+  </EntityType>
+  <Association Name="FK_Following_Person">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Followers_PakistaniTwitter" Type="Self.Followers_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Followers_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Following_Person1">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Followers_PakistaniTwitter" Type="Self.Followers_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Followers_PakistaniTwitter">
+        <PropertyRef Name="FollowingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tweet_Person">
+    <End Role="Users_PakistaniTwitter" Type="Self.Users_PakistaniTwitter" Multiplicity="1" />
+    <End Role="Tweets_PakistaniTwitter" Type="Self.Tweets_PakistaniTwitter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tweets_PakistaniTwitter">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PakistaniTwitterDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Followers_PakistaniTwitter" EntityType="Self.Followers_PakistaniTwitter" />
+    <EntitySet Name="Tweets_PakistaniTwitter" EntityType="Self.Tweets_PakistaniTwitter" />
+    <EntitySet Name="Users_PakistaniTwitter" EntityType="Self.Users_PakistaniTwitter" />
+    <AssociationSet Name="FK_Following_Person" Association="Self.FK_Following_Person">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Followers_PakistaniTwitter" EntitySet="Followers_PakistaniTwitter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Following_Person1" Association="Self.FK_Following_Person1">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Followers_PakistaniTwitter" EntitySet="Followers_PakistaniTwitter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tweet_Person" Association="Self.FK_Tweet_Person">
+      <End Role="Users_PakistaniTwitter" EntitySet="Users_PakistaniTwitter" />
+      <End Role="Tweets_PakistaniTwitter" EntitySet="Tweets_PakistaniTwitter" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

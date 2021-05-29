@@ -1,0 +1,89 @@
+﻿@model PakistaniTwitter.Models.PersonVM
+
+@{
+    ViewBag.Title = "Update Profile";
+}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#btnDeactivate").click(function (e) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/User/Deactivate",
+                    contentType: "application/json; charset=utf-8",
+                    //data: '{"tweetId":"' + 0 + '", "message":"' + $("#comment").val() + '"}',
+                    dataType: "html",
+                    success: function (result) {
+                        //$("#comment").text('');
+                        //location.reload();
+                        //refreshData();
+                        @*@{ Response.Redirect("~/User/Login");}*@
+                        location.href = '@Url.Action("Login", "User")'
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+                return false;
+        });
+
+
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Your Details</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, "User Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pwd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pwd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pwd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, "Full Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Update" class="btn btn-default col-lg-1" />
+                <input id="btnDeactivate" type="button" value="Deactivate" class="btn btn-default col-lg-1" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
